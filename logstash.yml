@@ -63,19 +63,19 @@ data:
     input {
       beats {
         port => 5044
+        path => "/log/bayu-springboot.log"
       }
     }
+    
     filter {
-      grok {
-          match => { "message" => "%{COMBINEDAPACHELOG}" }
-      }
-      date {
-        match => [ "timestamp" , "dd/MMM/yyyy:HH:mm:ss Z" ]
-      }
-      geoip {
-          source => "clientip"
+      if [message] =~ "\tat" {
+        grok {
+          match => ["message", "^(\tat)"]
+          add_tag => ["stacktrace"]
         }
-      }
+      }   
+    }
+
       output {
         elasticsearch {
           hosts => ["elasticsearch-logging:9200"]

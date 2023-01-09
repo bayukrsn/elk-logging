@@ -43,3 +43,29 @@ spec:
     nodePort: 32010
   selector:
     k8s-app: kibana-logging
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd-ingress
+  namespace: argocd
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  defaultBackend:
+    service:
+      name: kibana-logging
+      port:
+        number: 5601
+  rules:
+  - host:
+    http:
+     paths:
+       - path: /kibana
+         pathType: Prefix
+         backend:
+           service:
+             name: kibana-logging
+             port:
+               number: 5601

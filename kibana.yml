@@ -23,7 +23,6 @@ spec:
             value: http://elasticsearch-logging:9200
         ports:
         - containerPort: 5601
-          name: ui
           protocol: TCP
 ---
 apiVersion: v1
@@ -33,7 +32,6 @@ metadata:
   namespace: kube-system
   labels:
     k8s-app: kibana-logging
-    kubernetes.io/name: "Kibana"
 spec:
   type: ClusterIP
   ports:
@@ -61,7 +59,7 @@ spec:
   - host: "bayu-springboot.com"
     http:
      paths:
-       - path: /app/kibana
+       - path: /kibana
          pathType: Prefix
          backend:
            service:

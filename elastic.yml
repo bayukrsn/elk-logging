@@ -28,7 +28,7 @@ spec:
     spec:
       serviceAccountName: elasticsearch-logging
       containers:
-      - image: elasticsearch:6.8.4
+      - image: elasticsearch:7.17.7
         name: elasticsearch-logging
         ports:
         - containerPort: 9200

@@ -61,7 +61,7 @@ spec:
   - host: "bayu-springboot.com"
     http:
      paths:
-       - path: /kibana
+       - path: /app/kibana
          pathType: Prefix
          backend:
            service:

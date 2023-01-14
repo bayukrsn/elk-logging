@@ -58,7 +58,7 @@ spec:
       port:
         number: 5601
   rules:
-  - host: "bayu-springboot-kibana.com
+  - host: "bayu-springboot-kibana.com"
     http:
      paths:
        - path: /kibana

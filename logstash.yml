@@ -61,22 +61,31 @@ data:
     path.config: /usr/share/logstash/pipeline
   logstash.conf: |
     input {
-      beats {
-        port => 5044
+    beats {
+	      type => "test"
+        port => "5044"
       }
     }
-    
+
     filter {
+      #If log line contains tab character followed by 'at' then we will tag that entry as stacktrace
       if [message] =~ "\tat" {
         grok {
           match => ["message", "^(\tat)"]
           add_tag => ["stacktrace"]
         }
-      }   
+      }
+      
     }
 
-      output {
-        elasticsearch {
-          hosts => ["elasticsearch-logging:9200"]
+    output {
+
+      stdout {
+        codec => rubydebug
+      }
+
+      # Sending properly parsed log events to elasticsearch
+      elasticsearch {
+        hosts => ["localhost:9200"]
       }
     }

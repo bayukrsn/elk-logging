@@ -61,8 +61,8 @@ data:
     path.config: /usr/share/logstash/pipeline
   logstash.conf: |
     input {
-    beats {
-	type => "test"
+      beats {
+        type => "test"
         port => "5044"
       }
     }
@@ -75,15 +75,15 @@ data:
           add_tag => ["stacktrace"]
         }
       }
-      
+
     }
 
     output {
-
+   
       stdout {
         codec => rubydebug
       }
-
+    
       # Sending properly parsed log events to elasticsearch
       elasticsearch {
         hosts => ["elasticsearch-logging:9200"]

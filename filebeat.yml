@@ -7,20 +7,18 @@ metadata:
     k8s-app: filebeat
 data:
   filebeat.yml: |-
-    filebeat.inputs:
-      - type: log
-        paths:
-          - /log/bayu-springboot.log  
-        multiline.pattern: '^[0-9]{4}-[0-9]{2}-[0-9]{2}'
-        multiline.negate: true
-        multiline.match: after
-    
-    processors:
-      - add_cloud_metadata:
-      - add_host_metadata:
-          
-    output.logstash:
-      hosts: ['logstash-service:9600']
+    filebeat:
+  prospectors:
+    - paths:
+        - /var/log/spring-boot-elk.log
+      input_type: log
+      multiline.pattern: '^[0-9]{4}-[0-9]{2}-[0-9]{2}'
+      multiline.negate: true
+      multiline.match: after
+      
+output:
+  logstash:
+    hosts: ["localhost:5044"]
 ---
 apiVersion: apps/v1
 kind: DaemonSet

@@ -16,9 +16,9 @@ data:
           multiline.negate: true
           multiline.match: after
       
-output:
-  logstash:
-    hosts: ["logstash-service:9600"]
+    output:
+      logstash:
+        hosts: ["logstash-service:9600"]
 ---
 apiVersion: apps/v1
 kind: DaemonSet

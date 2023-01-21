@@ -4,6 +4,18 @@ metadata:
   name: es-config
   namespace: kube-system
 data:
+  elasticsearch.yml: |
+    cluster.name: bayu-elastic-cluster
+    network.host: "0.0.0.0"
+    bootstrap.memory_lock: false
+    discovery.zen.minimum_master_nodes: 1
+    xpack.security.http.ssl.enabled: false
+    xpack.security.transport.ssl.enabled: false
+    xpack.security.enabled: false
+    xpack.monitoring.enabled: false
+    discovery.seed_hosts: ["elasticsearch-logging-0"]
+    cluster.initial_master_nodes: ["elasticsearch-logging-0"]
+    
   ES_JAVA_OPTS: -Xms256m -Xmx256m
 ---
 apiVersion: apps/v1
@@ -39,7 +51,7 @@ spec:
           protocol: TCP
         volumeMounts:
         - name: elasticsearch-logging
-          mountPath: /data
+          mountPath: /usr/share/elasticsearch/config
         env:
         - name: "NAMESPACE"
           valueFrom:
@@ -50,6 +62,11 @@ spec:
               configMapKeyRef:
                   name: es-config
                   key: ES_JAVA_OPTS
+        - name: elasticsearch.yml
+          valueFrom:
+              configMapKeyRef:
+                  name: es-config
+                  key: elasticsearch.yml
       volumes:
       - name: elasticsearch-logging
         emptyDir: {}

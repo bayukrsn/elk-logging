@@ -18,7 +18,7 @@ data:
       
     output:
       logstash:
-        hosts: ["logstash-service:9600"]
+        hosts: ["logstash-service:5044"]
 ---
 apiVersion: apps/v1
 kind: DaemonSet

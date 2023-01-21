@@ -8,7 +8,7 @@ metadata:
 data:
   filebeat.yml: |-
     filebeat:
-      prospectors:
+      inputs:
         - paths:
             - /var/log/spring-boot-elk.log
           input_type: log

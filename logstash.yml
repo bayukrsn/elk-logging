@@ -86,6 +86,6 @@ data:
     
       # Sending properly parsed log events to elasticsearch
       elasticsearch {
-        hosts => ["elasticsearch-logging:9300"]
+        hosts => ["elasticsearch-logging:9200"]
       }
     }

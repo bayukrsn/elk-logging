@@ -5,7 +5,6 @@ metadata:
   namespace: kube-system
 data:
   elasticsearch.yml: |
-    cluster.name: "bayu-elastic-cluster"
     network.host: "0.0.0.0"
     bootstrap.memory_lock: false
     discovery.zen.minimum_master_nodes: 1
